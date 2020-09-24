@@ -9,6 +9,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  int lessonCount;
   int group = 1;
   @override
   Widget build(BuildContext context) {
@@ -61,8 +62,13 @@ class _BodyState extends State<Body> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ClassScreen()),
+            MaterialPageRoute(
+                builder: (context) => ClassScreen(
+                      lessonCount: lessonCount,
+                    )),
           );
+
+          print(lessonCount);
         },
         child: Text(
           "Continue",
@@ -88,6 +94,11 @@ class _BodyState extends State<Body> {
 
   TextFormField buildTextFormField() {
     return TextFormField(
+      onChanged: (value) {
+        setState(() {
+          lessonCount = int.parse(value);
+        });
+      },
       decoration: InputDecoration(
           labelText: "Class Number",
           hintText: "Enter the number of classes",

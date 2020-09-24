@@ -4,17 +4,30 @@ import 'package:gpa_calculator_flutter/screens/result/result_screen.dart';
 import 'package:gpa_calculator_flutter/size_config.dart';
 
 class ClassScreen extends StatefulWidget {
+  final int lessonCount;
+
+  const ClassScreen({Key key, @required this.lessonCount}) : super(key: key);
+
   @override
   _ClassScreenState createState() => _ClassScreenState();
 }
 
 class _ClassScreenState extends State<ClassScreen> {
+  int lessonCount;
+  @override
+  void initState() {
+    lessonCount = widget.lessonCount;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
       appBar: buildAppBar(context),
-      body: Body(),
+      body: Body(
+        lessonCount: lessonCount,
+      ),
     );
   }
 

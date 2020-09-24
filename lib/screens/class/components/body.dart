@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:gpa_calculator_flutter/size_config.dart';
 
 class Body extends StatefulWidget {
+  final int lessonCount;
+
+  const Body({Key key, this.lessonCount}) : super(key: key);
   @override
   _BodyState createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
   List _gradesAA = ["AA", "BA", "BB", "CB", "CC", "DC", "DD", "FD", "FF"];
-
+  int lessonCount;
   List<DropdownMenuItem<String>> _dropDownMenuItems;
   String _currentGrade;
 
@@ -30,6 +33,7 @@ class _BodyState extends State<Body> {
   }
 
   void initState() {
+    lessonCount = widget.lessonCount;
     _dropDownMenuItems = getDropDownMenuItems();
     _currentGrade = _dropDownMenuItems[0].value;
     super.initState();
@@ -42,7 +46,7 @@ class _BodyState extends State<Body> {
     double defaultSize = SizeConfig.defaultSize;
     return ListView.builder(
       scrollDirection: Axis.vertical,
-      itemCount: 5,
+      itemCount: lessonCount,
       itemBuilder: (context, index) {
         return buildClassCard(width, height, context);
       },
