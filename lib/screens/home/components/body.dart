@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gpa_calculator_flutter/constants.dart';
 import 'package:gpa_calculator_flutter/screens/class/class_screen.dart';
+import 'package:flutter/services.dart';
 import 'package:gpa_calculator_flutter/size_config.dart';
 
 class Body extends StatefulWidget {
@@ -9,7 +10,20 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  void buttonFunc(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Hata"),
+        );
+      },
+    );
+  }
+
   final _formKey = GlobalKey<FormState>();
+  final _text = TextEditingController();
+  bool isEmptyField = true;
   int lessonCount;
   int group = 1;
   @override
@@ -61,14 +75,33 @@ class _BodyState extends State<Body> {
         height: defaultSize * 6,
         color: Theme.of(context).primaryColor,
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ClassScreen(
-                      lessonCount: lessonCount,
-                    )),
-          );
-
+          if (_text.text.isEmpty) {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: Text("Error!"),
+                  content: Text("Number of classes field cannot be empty."),
+                  actions: [
+                    FlatButton(
+                      child: Text("Close"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ],
+                );
+              },
+            );
+          } else {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ClassScreen(
+                        lessonCount: lessonCount,
+                      )),
+            );
+          }
           print(lessonCount);
         },
         child: Text(
@@ -95,16 +128,29 @@ class _BodyState extends State<Body> {
 
   TextFormField buildTextFormField() {
     return TextFormField(
+      keyboardType: TextInputType.number,
+      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+      controller: _text,
       key: _formKey,
       validator: (value) {
-        if (int.parse(value) == 0) {
-          return 'Please enter some text';
+        if (_text.text.isNotEmpty) {
+          isEmptyField = false;
+        } else {
+          isEmptyField = true;
         }
         return null;
       },
       onChanged: (value) {
         setState(() {
+          print(value);
           lessonCount = int.parse(value);
+          print(value);
+          if (_text.text.isNotEmpty) {
+            isEmptyField = false;
+          } else {
+            isEmptyField = true;
+          }
+          print(isEmptyField.toString());
         });
       },
       decoration: InputDecoration(

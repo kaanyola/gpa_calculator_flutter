@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gpa_calculator_flutter/size_config.dart';
+import 'package:flutter/services.dart';
 
 class Body extends StatefulWidget {
   final int lessonCount;
@@ -55,7 +56,7 @@ class _BodyState extends State<Body> {
 
   Padding buildClassCard(double width, double height, BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(width * 0.05),
+      padding: EdgeInsets.all(width * 0.025),
       child: Container(
         padding: EdgeInsets.all(width * 0.025),
         width: width * 0.4,
@@ -66,11 +67,11 @@ class _BodyState extends State<Body> {
               BoxShadow(
                 color: Colors.grey.withOpacity(0.5),
                 spreadRadius: 5,
-                blurRadius: 3,
-                offset: Offset(0, 3), // changes position of shadow
+                blurRadius: 8,
+                offset: Offset(0, 6), // changes position of shadow
               ),
             ],
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(16),
             border: Border.all(color: Theme.of(context).primaryColor)),
         child: SingleChildScrollView(
           child: Column(
@@ -100,6 +101,8 @@ class _BodyState extends State<Body> {
                 ],
               ),
               TextFormField(
+                keyboardType: TextInputType.number,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 decoration: InputDecoration(hintText: "Input your credit"),
               ),
             ],

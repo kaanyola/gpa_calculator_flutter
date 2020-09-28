@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gpa_calculator_flutter/screens/class/components/body.dart';
 import 'package:gpa_calculator_flutter/screens/result/result_screen.dart';
 import 'package:gpa_calculator_flutter/size_config.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ClassScreen extends StatefulWidget {
   final int lessonCount;
@@ -13,6 +14,7 @@ class ClassScreen extends StatefulWidget {
 }
 
 class _ClassScreenState extends State<ClassScreen> {
+  final String assetName = 'assets/calculator2.svg';
   int lessonCount;
   @override
   void initState() {
@@ -54,12 +56,21 @@ class _ClassScreenState extends State<ClassScreen> {
             color: Theme.of(context).primaryColor,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-            child: Text("Calculate",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    letterSpacing: 2)),
+            child: Row(
+              children: [
+                SvgPicture.asset(
+                  assetName,
+                  height: 24,
+                  color: Colors.white,
+                ),
+                Text("Calculate",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        letterSpacing: 2)),
+              ],
+            ),
           ),
         ),
       ],
