@@ -9,6 +9,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  final _formKey = GlobalKey<FormState>();
   int lessonCount;
   int group = 1;
   @override
@@ -94,6 +95,13 @@ class _BodyState extends State<Body> {
 
   TextFormField buildTextFormField() {
     return TextFormField(
+      key: _formKey,
+      validator: (value) {
+        if (int.parse(value) == 0) {
+          return 'Please enter some text';
+        }
+        return null;
+      },
       onChanged: (value) {
         setState(() {
           lessonCount = int.parse(value);

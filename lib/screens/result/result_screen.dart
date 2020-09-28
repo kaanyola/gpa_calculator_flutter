@@ -5,8 +5,15 @@ class ResultScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("Result Screen"),
-      ),
+          child: Row(
+        children: [
+          Text("Your GPA is "),
+          Text(
+            "3.36",
+            style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+          )
+        ],
+      )),
     );
   }
 }
