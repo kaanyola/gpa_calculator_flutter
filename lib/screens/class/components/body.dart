@@ -12,9 +12,25 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   List _gradesAA = ["AA", "BA", "BB", "CB", "CC", "DC", "DD", "FD", "FF"];
+  List _gradesType2 = [
+    "A1",
+    "A2",
+    "A3",
+    "B1",
+    "B2",
+    "B3",
+    "C1",
+    "C2",
+    "C3",
+    "D",
+    "F"
+  ];
+  List _gradesType3 = ["A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D", "F"];
   int lessonCount;
+
   List<DropdownMenuItem<String>> _dropDownMenuItems;
   String _currentGrade;
+  List<String> currentGrades;
 
   List<DropdownMenuItem<String>> getDropDownMenuItems() {
     List<DropdownMenuItem<String>> items = new List();
@@ -45,16 +61,19 @@ class _BodyState extends State<Body> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     double defaultSize = SizeConfig.defaultSize;
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      itemCount: lessonCount,
-      itemBuilder: (context, index) {
-        return buildClassCard(width, height, context);
-      },
+    return SizedBox(
+      child: ListView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: lessonCount,
+        itemBuilder: (context, index) {
+          return buildClassCard(width, height, context, index);
+        },
+      ),
     );
   }
 
-  Padding buildClassCard(double width, double height, BuildContext context) {
+  Padding buildClassCard(
+      double width, double height, BuildContext context, int index) {
     return Padding(
       padding: EdgeInsets.all(width * 0.025),
       child: Container(
@@ -78,7 +97,7 @@ class _BodyState extends State<Body> {
             children: [
               TextFormField(
                 decoration: InputDecoration(
-                    prefixText: "1.",
+                    prefixText: (index + 1).toString() + ".",
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     prefixStyle: Theme.of(context)
                         .textTheme
@@ -111,4 +130,10 @@ class _BodyState extends State<Body> {
       ),
     );
   }
+}
+
+double ortHesapla() {
+  double result;
+  int toplamKredi;
+  return result;
 }
